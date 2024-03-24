@@ -693,7 +693,7 @@ export class CircularHeatmapComponent implements OnInit {
   }
   reColorHeatmap() {
     console.log('recolor');
-    for (var index = 0; index < this.ALL_CARD_DATA.length; index += 1) {
+    for (var index = 0; index < this.ALL_CARD_DATA.length; index++) {
       let cntAll: number = 0;
       let cntTrue: number = 0;
       var _self = this;
@@ -761,6 +761,11 @@ export class CircularHeatmapComponent implements OnInit {
   }
   loadState() {
     var content = localStorage.getItem('dataset');
+    // @ts-ignore
+    if (this.ALL_CARD_DATA[0]['Task'] != null) {
+      console.log('Found outdated dataset, removing')
+      localStorage.removeItem('dataset');
+    }
     if (content != null) {
       this.ALL_CARD_DATA = JSON.parse(content);
     }
